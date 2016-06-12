@@ -51,7 +51,7 @@ public class PanelManager {
 		menu = new PanelMenu(this);
 		levelChoice = new PanelLevelChoice(300, 200, 400, 400, this);
 		wordSetting = new PanelWordSetting(this);
-		//ranking = new PanelRanking(this);
+		ranking = new PanelRanking(this);
 		game = new PanelGame();
 	}
 
