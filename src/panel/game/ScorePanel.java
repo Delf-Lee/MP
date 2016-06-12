@@ -1,4 +1,5 @@
 package panel.game;
+
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -7,23 +8,29 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class ScorePanel extends JPanel {
-	int score = 2954000;
+	int score;
 	JLabel display;
 
 	public ScorePanel() {
 		setLayout(new FlowLayout(FlowLayout.LEFT));
-		setBounds(10, 150, 300, 100);
+		setBounds(10, 100, 300, 100);
 		display = new JLabel(Integer.toString(score));
-		display.setFont(new Font("맑은 고딕", Font.BOLD, 50));
-		display.setForeground(new Color(79, 46, 0));
-		//display.setBounds(r);
-		
+		display.setFont(new Font("Silkscreen", Font.BOLD, 50));
+		display.setForeground(Color.WHITE);
+
 		add(display);
 		setOpaque(false);
 	}
 
+	/** 점수 증가 및 표시 */
 	public void updateScore(int score) {
 		this.score += score;
-		repaint(); // 이렇게 하나?
+		display.setText(Integer.toString(this.score));
+	}
+
+	/** 스코어 초기화 */
+	public void initScore() {
+		score = 0;
+		display.setText("0");
 	}
 }

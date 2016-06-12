@@ -1,5 +1,5 @@
 package panel.game;
-import java.awt.Color;
+
 import java.awt.FlowLayout;
 
 import javax.swing.ImageIcon;
@@ -17,7 +17,32 @@ public class LifeBarPanel extends JPanel {
 		nowLife = 3; // 임시
 		setLayout(new FlowLayout());
 		setBounds(780, 620, 200, 35); // 200, 30
+		paintHeart();
+		setOpaque(false);
+	}
 
+	public void initLife() {
+		maxLife = 5; // 임시
+		nowLife = maxLife;
+	}
+
+	public void fillList() {
+		if (nowLife < maxLife) {
+			nowLife++;
+		}
+	}
+
+	public void lostLife() {
+		if (nowLife > 0) {
+			nowLife--;
+		}
+		paintHeart();
+		System.out.println("lost one heart " + nowLife);
+	}
+
+	private void paintHeart() {
+		removeAll();
+		
 		// 빨간색 하트
 		for (int i = 0; i < nowLife; i++) {
 			JLabel oneLife = new JLabel(filledHeart);
@@ -27,11 +52,10 @@ public class LifeBarPanel extends JPanel {
 		// 회색 하트
 		for (int i = 0; i < maxLife - nowLife; i++) {
 			JLabel oneLife = new JLabel(emptyHeart);
-			//oneLife.setForeground(Color.GREEN);
-			//oneLife.setBackground(Color.GREEN);
 			add(oneLife);
 		}
-		setOpaque(false);
+		
+		revalidate();
 	}
 	
 	public void updateLifeBar(/* fail 신호 */) {

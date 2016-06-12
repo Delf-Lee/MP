@@ -24,6 +24,7 @@ public class WordObject extends JPanel {
 		setTextLabel(word);
 		setImageLabel(type);
 		arrangeLabel();
+		setLayout(null);
 		setSize(width, height + 10);
 
 		setOpaque(false);

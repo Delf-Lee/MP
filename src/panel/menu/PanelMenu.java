@@ -115,7 +115,7 @@ public class PanelMenu extends BasePanel {
 				break;
 			case WORD_SETTING:
 				panel.setContentPane(PanelManager.WORD_SETTING);
-				panel.getWordSettingPanel().setFocus();
+				panel.getWordSettingPanel().setFocus(); // Æ÷Ä¿½º
 				break;
 			case RANKING:
 				panel.setContentPane(PanelManager.RANKING);

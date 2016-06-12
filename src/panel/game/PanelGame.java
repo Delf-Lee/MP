@@ -19,9 +19,20 @@ public class PanelGame extends BasePanel {
 		super("images/gameBG.png"); // ¹è°æ »ðÀÔ
 		setSize(MainFrame.WIDTH, MainFrame.HEIGHT);
 		setLocation(0, 25);
-		textInputBox = new InputPanel(780, 660, 200, 50);
-		add(textInputBox);
 
+		setComponent();
+	}
+
+	private void setComponent() {
+		textInputBox = new InputPanel(780, 660, 200, 50);
+		scoreBox = new ScorePanel();
+		gameInfoBox = new InfoPanel();
+		lifeBar = new LifeBarPanel();
+
+		add(textInputBox);
+		add(gameInfoBox);
+		add(scoreBox);
+		add(lifeBar);
 	}
 
 	public void showInfoPanelImage() {
@@ -46,5 +57,39 @@ public class PanelGame extends BasePanel {
 
 	public void initTextField() {
 		textInputBox.initTextField();
+	}
+
+	public void updateScore(int score) {
+		scoreBox.updateScore(score);
+	}
+
+	public void setLevel(int lvl) {
+		gameInfoBox.setLevel(lvl);
+	}
+
+	public void initTime(int time) {
+
+	}
+
+	public boolean updateTime() {
+		
+		if(gameInfoBox.updateTime()) {
+			return true;
+		}
+		return false;
+	}
+
+	public void setInfo(int lvl, int time) {
+		gameInfoBox.setInfo(lvl, time);
+	}
+
+	public void lostLife() {
+		lifeBar.lostLife();
+	}
+
+	public void initGame() {
+		initTextField();
+		lifeBar.initLife();
+
 	}
 }

@@ -45,9 +45,6 @@ public class WordManager {
 			System.out.println("입출력 오류 WordManager()");
 			System.exit(1);
 		}
-		for (int i = 0; i < entry.size(); i++) {
-			System.out.println(entry.get(i));
-		}
 	}
 
 	/** @retrun entry 내에 단어 중 하나를 무작위로 반환 */
@@ -101,7 +98,7 @@ public class WordManager {
 	}
 
 	public int setSpeed(int stage) {
-		int speed = 5;
+		int speed = (int) (Math.random() * 2 + stage);
 		return speed;
 	}
 
@@ -109,7 +106,7 @@ public class WordManager {
 	public void flowWord() {
 		Iterator<Word> it = list.iterator();
 		while (it.hasNext()) { // 리스트 내 단어 전체 순환
-			if (list.size() == 0) { 
+			if (list.size() == 0) {
 				break;
 			}
 			Word cursor = it.next();
@@ -118,6 +115,7 @@ public class WordManager {
 				//list.remove(cursor); // ConcurrentModificationException 발생...ㅠㅠ
 				it.remove();
 				thr.removeWord(cursor); // 패널에서 객체 삭제
+				thr.lostLife();
 				it = list.iterator(); // Vector에서도 fail-fast 발생? 일단 한번 더 초기화... 
 			}
 		}
@@ -146,6 +144,14 @@ public class WordManager {
 		return new Point(x, y);
 	}
 
+	public void initwordList() {
+		Iterator<Word> it = list.iterator();
+		while (it.hasNext()) {
+			thr.removeWord(it.next()); // 모든 단어레이블을 패널로 부터 떼어냄 
+		}
+		list.removeAll(list); // 리스트에서 모든 단어들을 삭제
+	}
+
 	/**
 	 * 각 단어 객체는 생성 좌표에 따라 기울기가 다르다.
 	 * 생성된 좌표에 따라서 해당 단어의 기울기를 결정한다.
@@ -154,7 +160,6 @@ public class WordManager {
 	 */
 	public int getEndX(int x) {
 		int limitX = (x - APPEARANCE_X1) * (LIMIT_X2 - LIMIT_X1) / (APPEARANCE_X2 - APPEARANCE_X1) + LIMIT_X1;
-		System.out.println(limitX);
 		return limitX;
 	}
 
